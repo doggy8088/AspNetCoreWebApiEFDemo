@@ -33,6 +33,7 @@ namespace AspNetCoreWebApiEFDemo.Controllers
 
         // GET: api/Courses/5
         [HttpGet("{id}", Name = nameof(GetCourseByIdAsync))]
+        [ActionName(nameof(GetCourseByIdAsync))]
         public async Task<ActionResult<Course>> GetCourseByIdAsync(int id)
         {
             if (_context.Courses == null)
@@ -92,7 +93,7 @@ namespace AspNetCoreWebApiEFDemo.Controllers
             _context.Courses.Add(course);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetCourseByIdAsync).Replace("Async", ""), new { id = course.CourseId }, course);
+            return CreatedAtAction(nameof(GetCourseByIdAsync), new { id = course.CourseId }, course);
         }
 
         // DELETE: api/Courses/5
