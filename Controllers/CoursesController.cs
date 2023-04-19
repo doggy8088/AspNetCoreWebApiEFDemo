@@ -32,8 +32,8 @@ namespace AspNetCoreWebApiEFDemo.Controllers
         }
 
         // GET: api/Courses/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Course>> GetCourse(int id)
+        [HttpGet("{id}", Name = nameof(GetCourseByIdAsync))]
+        public async Task<ActionResult<Course>> GetCourseByIdAsync(int id)
         {
             if (_context.Courses == null)
             {
@@ -82,8 +82,8 @@ namespace AspNetCoreWebApiEFDemo.Controllers
 
         // POST: api/Courses
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Course>> PostCourse(Course course)
+        [HttpPost(Name = nameof(PostCourseAsync))]
+        public async Task<ActionResult<Course>> PostCourseAsync(Course course)
         {
             if (_context.Courses == null)
             {
@@ -92,7 +92,7 @@ namespace AspNetCoreWebApiEFDemo.Controllers
             _context.Courses.Add(course);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCourse", new { id = course.CourseId }, course);
+            return CreatedAtAction(nameof(GetCourseByIdAsync), new { id = course.CourseId }, course);
         }
 
         // DELETE: api/Courses/5
