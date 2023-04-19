@@ -92,7 +92,7 @@ namespace AspNetCoreWebApiEFDemo.Controllers
             _context.Courses.Add(course);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetCourseByIdAsync), new { id = course.CourseId }, course);
+            return CreatedAtAction(nameof(GetCourseByIdAsync).Replace("Async", ""), new { id = course.CourseId }, course);
         }
 
         // DELETE: api/Courses/5
